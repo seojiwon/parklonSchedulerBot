@@ -8,7 +8,7 @@ heatPadAccount = "your-device-id@iunplug.co.kr" # See the back of your Parklonia
 class HeatPadBot:
     def __init__(self):
         self.login()
-        self.headpadIdx = 1 # If you have multiple heat-pads, change this index to refer to the pad you want to control.
+        self.heatpadIdx = 1 # If you have multiple heat-pads, change this index to refer to the pad you want to control.
         
     def login(self):       
         import getpass
@@ -40,14 +40,14 @@ class HeatPadBot:
     def turnOn(self):
         print "turning on"
         self.conn.send(xmpp.protocol.Message(heatPadAccount, 
-                '''R9HAUTO_JSON{"type":"request","payload":{"indexes":[{"idx":%d,"heaters":[{"power":true,"htidx":1}]}],"command":"setstate","devtype":"thermomat"},"msgid":"4F95D3PE1A","version":1}'''%self.headpadIdx, 
+                '''R9HAUTO_JSON{"type":"request","payload":{"indexes":[{"idx":%d,"heaters":[{"power":true,"htidx":1}]}],"command":"setstate","devtype":"thermomat"},"msgid":"4F95D3PE1A","version":1}'''%self.heatpadIdx, 
                 typ='chat'))
 
     def turnOff(self):
         # This doesn't seem to work. Need to understand the protocol.
         print "turning off"
         self.conn.send(xmpp.protocol.Message(heatPadAccount, 
-                '''R9HAUTO_JSON{"type":"request","payload":{"indexes":[{"idx":%d,"heaters":[{"power":false,"htidx":1}]}],"command":"setstate","devtype":"thermomat"},"msgid":"F2ESTPFTG3","version":1}}'''%self.headpadIdx,
+                '''R9HAUTO_JSON{"type":"request","payload":{"indexes":[{"idx":%d,"heaters":[{"power":false,"htidx":1}]}],"command":"setstate","devtype":"thermomat"},"msgid":"F2ESTPFTG3","version":1}}'''%self.heatpadIdx,
                 typ='chat'))
 
 bot = HeatPadBot()
